@@ -33,6 +33,7 @@ interface HeaderProps {
   onSwitchAccountToLandingPage?: () => void;
   onOpenGallery?: () => void;
   onOpenManageAsn?: () => void;
+  onOpenMetaverse?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -51,6 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSwitchAccountToLandingPage,
   onOpenGallery,
   onOpenManageAsn,
+  onOpenMetaverse,
 }) => {
   const currentDate = new Date().toLocaleDateString('id-ID', {
     weekday: 'long',
@@ -147,6 +149,22 @@ export const Header: React.FC<HeaderProps> = ({
               <span>Kepala BPSDM</span>
             </button>
           </div>
+
+          {/* Metaverse Pemantauan Kepala BPSDM Quick Button */}
+          {onOpenMetaverse && (
+            <button
+              id="btn-open-metaverse-header"
+              onClick={onOpenMetaverse}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-linear-to-r from-amber-600 via-amber-500 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white shadow-md border border-amber-400/40 transition group"
+              title="Masuk ke Ruang Metaverse 3D Pemantauan Kepala BPSDM"
+            >
+              <Crown className="w-3.5 h-3.5 text-yellow-200 group-hover:rotate-12 transition-transform" />
+              <span>Metaverse 3D Pimpinan</span>
+              <span className="bg-amber-950/80 text-amber-300 text-[9px] px-1 py-0.2 rounded font-mono border border-amber-400/40">
+                VR
+              </span>
+            </button>
+          )}
 
           {/* Apps Script & Code.gs Modal Button */}
           <button

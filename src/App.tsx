@@ -33,6 +33,7 @@ import { GoogleSsoModal } from './components/GoogleSsoModal';
 import { SsoLandingPage } from './components/SsoLandingPage';
 import { AsnManagementSection } from './components/AsnManagementSection';
 import { BpsdmCampusGalleryModal } from './components/BpsdmCampusGalleryModal';
+import { MetaverseMonitoringSection } from './components/MetaverseMonitoringSection';
 import { 
   LayoutDashboard, 
   FileCheck, 
@@ -45,7 +46,8 @@ import {
   ListTodo,
   Radio,
   UserCog,
-  Camera
+  Camera,
+  Crown
 } from 'lucide-react';
 
 export default function App() {
@@ -96,7 +98,7 @@ export default function App() {
   });
 
   // Navigation tab (Default to CommandCenter for high-tech operational overview)
-  const [activeTab, setActiveTab] = useState<'COMMAND_CENTER' | 'DASHBOARD' | 'TASKS' | 'SKP' | 'FWA' | 'DIKLAT' | 'MANAGE_ASN'>('COMMAND_CENTER');
+  const [activeTab, setActiveTab] = useState<'COMMAND_CENTER' | 'DASHBOARD' | 'METAVERSE' | 'TASKS' | 'SKP' | 'FWA' | 'DIKLAT' | 'MANAGE_ASN'>('COMMAND_CENTER');
 
   // Modals & Drawers
   const [isFwaModalOpen, setIsFwaModalOpen] = useState<boolean>(false);
@@ -498,6 +500,7 @@ export default function App() {
         }}
         onOpenGallery={() => setIsGalleryModalOpen(true)}
         onOpenManageAsn={() => setActiveTab('MANAGE_ASN')}
+        onOpenMetaverse={() => setActiveTab('METAVERSE')}
       />
 
       {/* Sub-Navigation Bar */}
@@ -517,6 +520,24 @@ export default function App() {
               <span>Pusat Komando (Command Center)</span>
               <span className="bg-emerald-500/20 text-emerald-600 text-[10px] px-1.5 py-0.2 rounded font-mono border border-emerald-500/30">
                 LIVE
+              </span>
+            </button>
+
+            {/* TAB METAVERSE PEMANTAUAN KEPALA BPSDM */}
+            <button
+              id="nav-metaverse"
+              onClick={() => setActiveTab('METAVERSE')}
+              className={`px-3.5 py-2 rounded-lg transition flex items-center gap-2 shrink-0 border ${
+                activeTab === 'METAVERSE'
+                  ? 'bg-linear-to-r from-amber-600 via-amber-500 to-cyan-600 text-white font-bold border-amber-400 shadow-md'
+                  : 'bg-amber-500/10 text-amber-900 border-amber-300/80 hover:bg-amber-500/20'
+              }`}
+              title="Ruang Metaverse 3D Pemantauan Kepala BPSDM Jatim"
+            >
+              <Crown className="w-4 h-4 text-amber-600" />
+              <span>Metaverse 3D Pimpinan</span>
+              <span className="bg-amber-500/20 text-amber-800 text-[10px] px-1.5 py-0.2 rounded font-mono border border-amber-500/30 font-bold">
+                VR TWIN
               </span>
             </button>
 
@@ -633,6 +654,7 @@ export default function App() {
             onBroadcastChat={handleBroadcastChat}
             onOpenManageAsn={() => setActiveTab('MANAGE_ASN')}
             onOpenGallery={() => setIsGalleryModalOpen(true)}
+            onOpenMetaverse={() => setActiveTab('METAVERSE')}
           />
         )}
         {/* EXECUTIVE DASHBOARD VIEW (When Kepala BPSDM Mode is active) */}
@@ -766,6 +788,24 @@ export default function App() {
             onUpdateAsn={handleUpdateAsn}
             onDeleteAsn={handleDeleteAsn}
             onResetToDefault={handleResetAsnToDefault}
+          />
+        )}
+
+        {/* TAB METAVERSE PEMANTAUAN KEPALA BPSDM */}
+        {activeTab === 'METAVERSE' && (
+          <MetaverseMonitoringSection
+            allAsn={allAsn}
+            currentAsn={currentAsn}
+            dailyTasks={dailyTasks}
+            presensiList={presensiList}
+            onOpenWorkspaceModal={() => setIsWorkspaceModalOpen(true)}
+            onSendFeedbackToAsn={(asnId, message) => {
+              const target = allAsn.find((a) => a.id === asnId);
+              showToast(
+                `Arahan Kepala BPSDM dipancarkan ke workstation ${target?.nama || 'Pegawai'}: "${message}"`,
+                'success'
+              );
+            }}
           />
         )}
       </main>

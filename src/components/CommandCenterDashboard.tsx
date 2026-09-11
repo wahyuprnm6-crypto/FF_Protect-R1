@@ -55,6 +55,7 @@ interface CommandCenterDashboardProps {
   onBroadcastChat: (title: string, message: string) => void;
   onOpenManageAsn?: () => void;
   onOpenGallery?: () => void;
+  onOpenMetaverse?: () => void;
 }
 
 export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
@@ -74,6 +75,7 @@ export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
   onBroadcastChat,
   onOpenManageAsn,
   onOpenGallery,
+  onOpenMetaverse,
 }) => {
   // Current Live Clock WIB
   const [liveTime, setLiveTime] = useState<string>('');
@@ -261,8 +263,20 @@ export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
               </div>
             </div>
 
-            {/* Quick Action: Gallery, Pimpinan Broadcast / ASN Management or Pegawai FWA */}
+            {/* Quick Action: Gallery, Metaverse, Pimpinan Broadcast / ASN Management or Pegawai FWA */}
             <div className="flex flex-wrap items-center gap-2">
+              {onOpenMetaverse && (
+                <button
+                  id="btn-command-metaverse"
+                  onClick={onOpenMetaverse}
+                  className="bg-linear-to-r from-amber-600 via-amber-500 to-cyan-600 hover:from-amber-500 hover:to-cyan-500 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-md flex items-center gap-1.5 transition border border-amber-400/40"
+                  title="Buka Ruang Metaverse 3D Pemantauan Kepala BPSDM"
+                >
+                  <Crown className="w-3.5 h-3.5 text-yellow-200" />
+                  <span>Metaverse 3D</span>
+                </button>
+              )}
+
               {onOpenGallery && (
                 <button
                   id="btn-command-gallery"

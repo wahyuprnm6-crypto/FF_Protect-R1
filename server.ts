@@ -35,9 +35,10 @@ function getGeminiClient(): GoogleGenAI | null {
   return geminiClient;
 }
 
-// Resilient Gemini text generation using current models (gemini-3.6-flash, gemini-3.8-flash, gemini-flash-latest)
-async function generateGeminiText(ai: GoogleGenAI, contents: string, timeoutMs: number = 20000): Promise<string> {
-  const candidateModels = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-flash-latest'];
+// Resilient Gemini text generation using valid models from @google/genai SDK (gemini-3.1-flash-lite, gemini-3.8-flash, gemini-flash-latest)
+async function generateGeminiText(ai: GoogleGenAI, contents: string, timeoutMs: number = 8000): Promise<string> {
+  // Prioritize gemini-3.1-flash-lite for fast, high-availability generation and separate free-tier quota pool
+  const candidateModels = ['gemini-3.1-flash-lite', 'gemini-3.8-flash', 'gemini-flash-latest'];
   let lastError: any = null;
 
   for (const model of candidateModels) {
@@ -60,7 +61,8 @@ async function generateGeminiText(ai: GoogleGenAI, contents: string, timeoutMs: 
       }
     } catch (err: any) {
       lastError = err;
-      console.warn(`[Gemini API] Failed or timed out with model "${model}":`, err?.message || err);
+      const errMsg = err?.message || String(err);
+      console.warn(`[Gemini API] Fallback from "${model}": ${errMsg.slice(0, 150)}`);
     }
   }
 
@@ -406,7 +408,7 @@ Berikan jawaban yang lugas, profesional, berwibawa, dan mengedepankan core value
 
       res.json({ reply: reply || 'Tidak ada tanggapan yang dihasilkan.' });
     } catch (error: any) {
-      console.error('AI Consult error:', error);
+      console.warn('[AI Consult] Serving structured SPBE fallback:', error?.message || error);
       res.json({
         reply: `[Si-Praja Smart SPBE Advisor]:
 Berdasarkan ketentuan resmi SE No. 800/1141/204/2026 BPSDM Provinsi Jawa Timur:
@@ -472,7 +474,7 @@ Berikan analisis tajam, ringkas, berbobot, berbasis fakta data, dan sesuaikan de
         isAiGenerated: true,
       });
     } catch (error: any) {
-      console.error('Workforce analysis error, serving structured SPBE report:', error?.message || error);
+      console.warn('[Workforce Analysis] Serving structured SPBE fallback:', error?.message || error);
       const fallback = fallbackAnalyses[analysisType] || fallbackAnalyses['OVERALL_COMPLIANCE'];
       res.json({
         analysis: fallback,
