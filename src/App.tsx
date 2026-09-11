@@ -34,6 +34,8 @@ import { SsoLandingPage } from './components/SsoLandingPage';
 import { AsnManagementSection } from './components/AsnManagementSection';
 import { BpsdmCampusGalleryModal } from './components/BpsdmCampusGalleryModal';
 import { MetaverseMonitoringSection } from './components/MetaverseMonitoringSection';
+import { VirtualOfficeZoomRoom } from './components/virtual-office/VirtualOfficeZoomRoom';
+import { FloatingVirtualOfficeMiniBar } from './components/virtual-office/FloatingVirtualOfficeMiniBar';
 import { 
   LayoutDashboard, 
   FileCheck, 
@@ -47,7 +49,8 @@ import {
   Radio,
   UserCog,
   Camera,
-  Crown
+  Crown,
+  Video
 } from 'lucide-react';
 
 export default function App() {
@@ -98,7 +101,13 @@ export default function App() {
   });
 
   // Navigation tab (Default to CommandCenter for high-tech operational overview)
-  const [activeTab, setActiveTab] = useState<'COMMAND_CENTER' | 'DASHBOARD' | 'METAVERSE' | 'TASKS' | 'SKP' | 'FWA' | 'DIKLAT' | 'MANAGE_ASN'>('COMMAND_CENTER');
+  const [activeTab, setActiveTab] = useState<'COMMAND_CENTER' | 'DASHBOARD' | 'METAVERSE' | 'ZOOM_ROOM' | 'TASKS' | 'SKP' | 'FWA' | 'DIKLAT' | 'MANAGE_ASN'>('COMMAND_CENTER');
+
+  // Virtual Office Zoom Room PiP State
+  const [isZoomMinimized, setIsZoomMinimized] = useState<boolean>(false);
+  const [zoomMicOn, setZoomMicOn] = useState<boolean>(true);
+  const [zoomCamOn, setZoomCamOn] = useState<boolean>(true);
+  const [zoomHandRaised, setZoomHandRaised] = useState<boolean>(false);
 
   // Modals & Drawers
   const [isFwaModalOpen, setIsFwaModalOpen] = useState<boolean>(false);

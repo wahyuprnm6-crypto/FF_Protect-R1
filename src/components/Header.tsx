@@ -13,7 +13,8 @@ import {
   User,
   Crown,
   Camera,
-  UserCog
+  UserCog,
+  Video
 } from 'lucide-react';
 import { BpsdmLogo } from './BpsdmLogo';
 
@@ -34,6 +35,7 @@ interface HeaderProps {
   onOpenGallery?: () => void;
   onOpenManageAsn?: () => void;
   onOpenMetaverse?: () => void;
+  onOpenZoomRoom?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -53,6 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenGallery,
   onOpenManageAsn,
   onOpenMetaverse,
+  onOpenZoomRoom,
 }) => {
   const currentDate = new Date().toLocaleDateString('id-ID', {
     weekday: 'long',
@@ -162,6 +165,23 @@ export const Header: React.FC<HeaderProps> = ({
               <span>Metaverse 3D Pimpinan</span>
               <span className="bg-amber-950/80 text-amber-300 text-[9px] px-1 py-0.2 rounded font-mono border border-amber-400/40">
                 VR
+              </span>
+            </button>
+          )}
+
+          {/* Virtual Office Zoom Meeting Room Quick Button */}
+          {onOpenZoomRoom && (
+            <button
+              id="btn-open-zoom-header"
+              onClick={onOpenZoomRoom}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-linear-to-r from-teal-600 via-emerald-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-md border border-emerald-400/40 transition group"
+              title="Gabung Rapat Zoom & Komunikasi Kantor Virtual BPSDM Jatim"
+            >
+              <Video className="w-3.5 h-3.5 text-emerald-200 group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline">Ruang Zoom</span>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-300"></span>
               </span>
             </button>
           )}

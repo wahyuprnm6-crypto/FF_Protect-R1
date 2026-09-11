@@ -56,6 +56,7 @@ interface CommandCenterDashboardProps {
   onOpenManageAsn?: () => void;
   onOpenGallery?: () => void;
   onOpenMetaverse?: () => void;
+  onOpenZoomRoom?: () => void;
 }
 
 export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
@@ -76,6 +77,7 @@ export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
   onOpenManageAsn,
   onOpenGallery,
   onOpenMetaverse,
+  onOpenZoomRoom,
 }) => {
   // Current Live Clock WIB
   const [liveTime, setLiveTime] = useState<string>('');
@@ -274,6 +276,19 @@ export const CommandCenterDashboard: React.FC<CommandCenterDashboardProps> = ({
                 >
                   <Crown className="w-3.5 h-3.5 text-yellow-200" />
                   <span>Metaverse 3D</span>
+                </button>
+              )}
+
+              {onOpenZoomRoom && (
+                <button
+                  id="btn-command-zoom-room"
+                  onClick={onOpenZoomRoom}
+                  className="bg-linear-to-r from-teal-600 via-emerald-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-md flex items-center gap-1.5 transition border border-emerald-400/40 group"
+                  title="Masuk ke Ruang Rapat Zoom Kantor Virtual BPSDM"
+                >
+                  <Video className="w-3.5 h-3.5 text-emerald-200 group-hover:scale-110 transition-transform" />
+                  <span>Ruang Zoom</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping" />
                 </button>
               )}
 
