@@ -57,6 +57,46 @@ export interface StatsResponse {
   quotas: QuotaCalculation[];
 }
 
+export function calculateLocalStats(tanggal?: string): StatsResponse {
+  const fwaList = getLocal<FwaRequest[]>(STORAGE_KEYS.FWA, INITIAL_FWA_REQUESTS);
+  const queryDate = tanggal || new Date().toISOString().split('T')[0];
+  const totalAsn = UNIT_KERJA_LIST.reduce((acc, u) => acc + u.totalAsn, 0);
+
+  const quotas: QuotaCalculation[] = UNIT_KERJA_LIST.map((unit) => {
+    const approvedWfh = fwaList.filter(
+      (r) => r.unitKerjaId === unit.id && r.tanggal === queryDate && r.jenisKerja === 'WFH' && r.status === 'DISETUJUI'
+    ).length;
+    const persentaseWfh = Math.round((approvedWfh / unit.totalAsn) * 100);
+    const kuotaTersediaWfh = Math.max(0, unit.kuotaMaksimalWfh - approvedWfh);
+
+    return {
+      unitKerjaId: unit.id,
+      unitKerjaNama: unit.nama,
+      totalAsn: unit.totalAsn,
+      maksimalWfh: unit.kuotaMaksimalWfh,
+      jumlahWfhHariIni: approvedWfh,
+      jumlahWfoHariIni: unit.totalAsn - approvedWfh,
+      persentaseWfh,
+      kuotaTersediaWfh,
+      isQuotaExceeded: approvedWfh > unit.kuotaMaksimalWfh,
+      statusLayananFisik: approvedWfh >= unit.kuotaMaksimalWfh ? 'KRITIS' : approvedWfh >= unit.kuotaMaksimalWfh * 0.8 ? 'WASPADA' : 'OPTIMAL',
+    };
+  });
+
+  const totalWfh = quotas.reduce((acc, q) => acc + q.jumlahWfhHariIni, 0);
+
+  return {
+    tanggal: queryDate,
+    totalAsn,
+    totalWfh,
+    totalWfo: totalAsn - totalWfh,
+    overallWfhPercentage: Math.round((totalWfh / totalAsn) * 100),
+    kuotaMaxGlobal50Persen: Math.floor(totalAsn * 0.5),
+    isGlobalQuotaCompliant: totalWfh <= Math.floor(totalAsn * 0.5),
+    quotas,
+  };
+}
+
 export const apiService = {
   // 1. Fetch Stats & Quota Calculations
   async getStats(tanggal?: string): Promise<StatsResponse> {
@@ -70,44 +110,7 @@ export const apiService = {
       // Fallback
     }
 
-    // Local fallback calculation
-    const fwaList = getLocal<FwaRequest[]>(STORAGE_KEYS.FWA, INITIAL_FWA_REQUESTS);
-    const queryDate = tanggal || new Date().toISOString().split('T')[0];
-    const totalAsn = UNIT_KERJA_LIST.reduce((acc, u) => acc + u.totalAsn, 0);
-
-    const quotas: QuotaCalculation[] = UNIT_KERJA_LIST.map((unit) => {
-      const approvedWfh = fwaList.filter(
-        (r) => r.unitKerjaId === unit.id && r.tanggal === queryDate && r.jenisKerja === 'WFH' && r.status === 'DISETUJUI'
-      ).length;
-      const persentaseWfh = Math.round((approvedWfh / unit.totalAsn) * 100);
-      const kuotaTersediaWfh = Math.max(0, unit.kuotaMaksimalWfh - approvedWfh);
-
-      return {
-        unitKerjaId: unit.id,
-        unitKerjaNama: unit.nama,
-        totalAsn: unit.totalAsn,
-        maksimalWfh: unit.kuotaMaksimalWfh,
-        jumlahWfhHariIni: approvedWfh,
-        jumlahWfoHariIni: unit.totalAsn - approvedWfh,
-        persentaseWfh,
-        kuotaTersediaWfh,
-        isQuotaExceeded: approvedWfh > unit.kuotaMaksimalWfh,
-        statusLayananFisik: approvedWfh >= unit.kuotaMaksimalWfh ? 'KRITIS' : approvedWfh >= unit.kuotaMaksimalWfh * 0.8 ? 'WASPADA' : 'OPTIMAL',
-      };
-    });
-
-    const totalWfh = quotas.reduce((acc, q) => acc + q.jumlahWfhHariIni, 0);
-
-    return {
-      tanggal: queryDate,
-      totalAsn,
-      totalWfh,
-      totalWfo: totalAsn - totalWfh,
-      overallWfhPercentage: Math.round((totalWfh / totalAsn) * 100),
-      kuotaMaxGlobal50Persen: Math.floor(totalAsn * 0.5),
-      isGlobalQuotaCompliant: totalWfh <= Math.floor(totalAsn * 0.5),
-      quotas,
-    };
+    return calculateLocalStats(tanggal);
   },
 
   // 2. ASN Profiles

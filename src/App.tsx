@@ -14,7 +14,7 @@ import {
   DailyTask
 } from './types';
 import { UNIT_KERJA_LIST, INITIAL_ASN_PROFILES, INITIAL_DAILY_TASKS, INITIAL_PRESENSI } from './data/mockData';
-import { apiService, StatsResponse } from './services/api';
+import { apiService, StatsResponse, calculateLocalStats } from './services/api';
 import { initAuth, googleSignIn, logout } from './services/workspace';
 import { Header } from './components/Header';
 import { QuotaOverviewCard } from './components/QuotaOverviewCard';
@@ -51,10 +51,14 @@ import {
 export default function App() {
   const [currentAsn, setCurrentAsn] = useState<ASNProfile>(INITIAL_ASN_PROFILES[0]);
   const [allAsn, setAllAsn] = useState<ASNProfile[]>(() => {
-    const saved = localStorage.getItem('bpsdm_all_asn');
-    return saved ? JSON.parse(saved) : INITIAL_ASN_PROFILES;
+    try {
+      const saved = localStorage.getItem('bpsdm_all_asn');
+      return saved ? JSON.parse(saved) : INITIAL_ASN_PROFILES;
+    } catch {
+      return INITIAL_ASN_PROFILES;
+    }
   });
-  const [stats, setStats] = useState<StatsResponse | null>(null);
+  const [stats, setStats] = useState<StatsResponse>(() => calculateLocalStats());
   const [fwaRequests, setFwaRequests] = useState<FwaRequest[]>([]);
   const [skpOutputs, setSkpOutputs] = useState<SkpOutputItem[]>([]);
   const [agendas, setAgendas] = useState<DiklatAgenda[]>([]);
@@ -62,7 +66,11 @@ export default function App() {
 
   // Initial Google SSO Landing Page state
   const [hasEnteredApp, setHasEnteredApp] = useState<boolean>(() => {
-    return sessionStorage.getItem('bpsdm_has_entered') === 'true';
+    try {
+      return sessionStorage.getItem('bpsdm_has_entered') === 'true';
+    } catch {
+      return false;
+    }
   });
 
   // User Mode: Pegawai ASN vs Kepala BPSDM
@@ -70,13 +78,21 @@ export default function App() {
 
   // Daily Tasks & Presensi Records
   const [dailyTasks, setDailyTasks] = useState<DailyTask[]>(() => {
-    const saved = localStorage.getItem('bpsdm_daily_tasks');
-    return saved ? JSON.parse(saved) : INITIAL_DAILY_TASKS;
+    try {
+      const saved = localStorage.getItem('bpsdm_daily_tasks');
+      return saved ? JSON.parse(saved) : INITIAL_DAILY_TASKS;
+    } catch {
+      return INITIAL_DAILY_TASKS;
+    }
   });
 
   const [presensiList, setPresensiList] = useState<PresensiRecord[]>(() => {
-    const saved = localStorage.getItem('bpsdm_presensi_records');
-    return saved ? JSON.parse(saved) : INITIAL_PRESENSI;
+    try {
+      const saved = localStorage.getItem('bpsdm_presensi_records');
+      return saved ? JSON.parse(saved) : INITIAL_PRESENSI;
+    } catch {
+      return INITIAL_PRESENSI;
+    }
   });
 
   // Navigation tab (Default to CommandCenter for high-tech operational overview)
@@ -110,15 +126,21 @@ export default function App() {
 
   // Sync dailyTasks & presensiList & allAsn to localStorage
   useEffect(() => {
-    localStorage.setItem('bpsdm_daily_tasks', JSON.stringify(dailyTasks));
+    try {
+      localStorage.setItem('bpsdm_daily_tasks', JSON.stringify(dailyTasks));
+    } catch {}
   }, [dailyTasks]);
 
   useEffect(() => {
-    localStorage.setItem('bpsdm_presensi_records', JSON.stringify(presensiList));
+    try {
+      localStorage.setItem('bpsdm_presensi_records', JSON.stringify(presensiList));
+    } catch {}
   }, [presensiList]);
 
   useEffect(() => {
-    localStorage.setItem('bpsdm_all_asn', JSON.stringify(allAsn));
+    try {
+      localStorage.setItem('bpsdm_all_asn', JSON.stringify(allAsn));
+    } catch {}
   }, [allAsn]);
 
   // 1. Initialize Google Workspace Auth Listener
@@ -383,6 +405,14 @@ export default function App() {
     showToast(`Pegawai ${target?.nama || asnId} berhasil dinonaktifkan/dihapus dari roster.`, 'success');
   };
 
+  const handleResetAsnToDefault = () => {
+    setAllAsn(INITIAL_ASN_PROFILES);
+    try {
+      localStorage.setItem('bpsdm_all_asn', JSON.stringify(INITIAL_ASN_PROFILES));
+    } catch {}
+    showToast('Data roster pegawai berhasil dikembalikan ke standar awal.', 'success');
+  };
+
   // If user has not entered or opted to view Google SSO landing page
   if (!hasEnteredApp) {
     return (
@@ -398,12 +428,16 @@ export default function App() {
             userName: profile.nama,
           }));
           setHasEnteredApp(true);
-          sessionStorage.setItem('bpsdm_has_entered', 'true');
+          try {
+            sessionStorage.setItem('bpsdm_has_entered', 'true');
+          } catch {}
           showToast(`Berhasil login SSO Google: ${profile.nama}`, 'success');
         }}
         onContinueAsGuest={() => {
           setHasEnteredApp(true);
-          sessionStorage.setItem('bpsdm_has_entered', 'true');
+          try {
+            sessionStorage.setItem('bpsdm_has_entered', 'true');
+          } catch {}
         }}
       />
     );
@@ -458,7 +492,9 @@ export default function App() {
         onOpenAppsScriptModal={() => setIsAppsScriptModalOpen(true)}
         onSwitchAccountToLandingPage={() => {
           setHasEnteredApp(false);
-          sessionStorage.removeItem('bpsdm_has_entered');
+          try {
+            sessionStorage.removeItem('bpsdm_has_entered');
+          } catch {}
         }}
         onOpenGallery={() => setIsGalleryModalOpen(true)}
         onOpenManageAsn={() => setActiveTab('MANAGE_ASN')}
@@ -729,6 +765,7 @@ export default function App() {
             onAddAsn={handleAddAsn}
             onUpdateAsn={handleUpdateAsn}
             onDeleteAsn={handleDeleteAsn}
+            onResetToDefault={handleResetAsnToDefault}
           />
         )}
       </main>

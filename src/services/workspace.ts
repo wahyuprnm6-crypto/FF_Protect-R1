@@ -8,8 +8,16 @@ import {
 } from 'firebase/auth';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
+let app: any = null;
+let auth: any = null;
+try {
+  if (firebaseConfig && (firebaseConfig as any).apiKey) {
+    app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+    auth = getAuth(app);
+  }
+} catch (e) {
+  console.warn('Firebase init warning (running in standalone/mock mode):', e);
+}
 
 export const SCOPES = [
   'https://www.googleapis.com/auth/calendar.events',
@@ -21,14 +29,21 @@ const provider = new GoogleAuthProvider();
 SCOPES.forEach((scope) => provider.addScope(scope));
 
 let isSigningIn = false;
-let cachedAccessToken: string | null = localStorage.getItem('bpsdm_google_access_token');
+let cachedAccessToken: string | null = null;
+try {
+  cachedAccessToken = localStorage.getItem('bpsdm_google_access_token');
+} catch {}
 
 export const initAuth = (
   onAuthSuccess?: (user: User | any, token: string) => void,
   onAuthFailure?: () => void
 ) => {
   // Cek apakah ada sesi SSO lokal tersimpan
-  const savedUserJson = localStorage.getItem('bpsdm_sso_user');
+  let savedUserJson: string | null = null;
+  try {
+    savedUserJson = localStorage.getItem('bpsdm_sso_user');
+  } catch {}
+
   if (savedUserJson && cachedAccessToken) {
     try {
       const savedUser = JSON.parse(savedUserJson);
@@ -38,29 +53,40 @@ export const initAuth = (
     } catch {}
   }
 
+  if (!auth) {
+    return () => {};
+  }
+
   return onAuthStateChanged(auth, async (user: User | null) => {
     if (user) {
       const token = cachedAccessToken || 'sso-google-token-active';
-      localStorage.setItem(
-        'bpsdm_sso_user',
-        JSON.stringify({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        })
-      );
+      try {
+        localStorage.setItem(
+          'bpsdm_sso_user',
+          JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          })
+        );
+      } catch {}
       if (onAuthSuccess) onAuthSuccess(user, token);
     } else if (!savedUserJson) {
       cachedAccessToken = null;
-      localStorage.removeItem('bpsdm_google_access_token');
-      localStorage.removeItem('bpsdm_sso_user');
+      try {
+        localStorage.removeItem('bpsdm_google_access_token');
+        localStorage.removeItem('bpsdm_sso_user');
+      } catch {}
       if (onAuthFailure) onAuthFailure();
     }
   });
 };
 
 export const googleSignIn = async (): Promise<{ user: User | any; accessToken: string } | null> => {
+  if (!auth) {
+    return simulateSsoSignIn('wahyuprnm6@gmail.com', 'Wahyu Purnomo, S.Kom', 'https://ui-avatars.com/api/?name=Wahyu+Purnomo&background=0D9488&color=fff');
+  }
   try {
     isSigningIn = true;
     const result = await signInWithPopup(auth, provider);
@@ -68,16 +94,18 @@ export const googleSignIn = async (): Promise<{ user: User | any; accessToken: s
     const token = credential?.accessToken || `google-sso-token-${Date.now()}`;
 
     cachedAccessToken = token;
-    localStorage.setItem('bpsdm_google_access_token', token);
-    localStorage.setItem(
-      'bpsdm_sso_user',
-      JSON.stringify({
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL,
-      })
-    );
+    try {
+      localStorage.setItem('bpsdm_google_access_token', token);
+      localStorage.setItem(
+        'bpsdm_sso_user',
+        JSON.stringify({
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        })
+      );
+    } catch {}
     return { user: result.user, accessToken: token };
   } catch (error: any) {
     console.warn('Sign in popup caught error:', error);
