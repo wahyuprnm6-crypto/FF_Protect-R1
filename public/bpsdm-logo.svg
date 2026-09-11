@@ -1,0 +1,385 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients for Mascot Body and Elements -->
+    <linearGradient id="bodySkin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#E2A662" />
+      <stop offset="60%" stopColor="#C98843" />
+      <stop offset="100%" stopColor="#A86B2A" />
+    </linearGradient>
+    <linearGradient id="earShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#B67530" />
+      <stop offset="100%" stopColor="#8C5018" />
+    </linearGradient>
+    <linearGradient id="capGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#22C55E" />
+      <stop offset="50%" stopColor="#15803D" />
+      <stop offset="100%" stopColor="#14532D" />
+    </linearGradient>
+    <linearGradient id="flagRed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#EF4444" />
+      <stop offset="50%" stopColor="#DC2626" />
+      <stop offset="100%" stopColor="#B91C1C" />
+    </linearGradient>
+    <linearGradient id="flagWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#FFFFFF" />
+      <stop offset="100%" stopColor="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="braceletBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="60%" stopColor="#0284C7" />
+      <stop offset="100%" stopColor="#0369A1" />
+    </linearGradient>
+    <linearGradient id="textOrange" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#FF7A00" />
+      <stop offset="100%" stopColor="#EA580C" />
+    </linearGradient>
+    <filter id="shadowFilter" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000000" floodOpacity="0.25" />
+    </filter>
+  </defs>
+
+  <g id="bpsdm-ganesha-mascot" filter="url(#shadowFilter)">
+    <!-- 1. BACK EARS -->
+    <!-- Left Ear Outer & Inner -->
+    <path
+      d="M 200 100 C 130 90, 80 130, 95 190 C 105 230, 150 240, 185 205 C 190 200, 195 160, 200 140 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M 125 150 C 120 190, 150 205, 175 185"
+      fill="none"
+      stroke="#8C5018"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M 115 130 C 105 110, 130 95, 155 105"
+      fill="none"
+      stroke="#1C140D"
+      stroke-width="4.5"
+      stroke-linecap="round"
+    />
+
+    <!-- Right Ear Outer & Inner -->
+    <path
+      d="M 300 100 C 370 90, 420 130, 405 190 C 395 230, 350 240, 315 205 C 310 200, 305 160, 300 140 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M 375 150 C 380 190, 350 205, 325 185"
+      fill="none"
+      stroke="#8C5018"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M 385 130 C 395 110, 370 95, 345 105"
+      fill="none"
+      stroke="#1C140D"
+      stroke-width="4.5"
+      stroke-linecap="round"
+    />
+
+    <!-- 2. LEGS & PADMASANA (CROSS-LEGGED BASE) -->
+    <!-- Left Thigh & Knee -->
+    <path
+      d="M 130 220 C 100 240, 95 290, 140 315 C 180 335, 230 320, 250 280 C 230 260, 170 240, 130 220 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+    />
+    <!-- Right Thigh & Knee -->
+    <path
+      d="M 370 220 C 400 240, 405 290, 360 315 C 320 335, 270 320, 250 280 C 270 260, 330 240, 370 220 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+    />
+
+    <!-- Feet Facing Forward / Soles -->
+    <!-- Left Foot & Anklet -->
+    <path
+      d="M 235 285 C 230 310, 215 340, 230 355 C 245 340, 250 310, 245 285 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="4"
+    />
+    <!-- Right Foot & Anklet -->
+    <path
+      d="M 265 285 C 270 310, 285 340, 270 355 C 255 340, 250 310, 255 285 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="4"
+    />
+
+    <!-- Blue Beaded Anklets -->
+    <g fill="url(#braceletBlue)" stroke="#0F172A" stroke-width="1.5">
+      <ellipse cx="238" cy="285" rx="14" ry="5" />
+      <circle cx="230" cy="285" r="3" fill="#38BDF8" />
+      <circle cx="238" cy="285" r="3" fill="#BAE6FD" />
+      <circle cx="246" cy="285" r="3" fill="#38BDF8" />
+
+      <ellipse cx="262" cy="285" rx="14" ry="5" />
+      <circle cx="254" cy="285" r="3" fill="#38BDF8" />
+      <circle cx="262" cy="285" r="3" fill="#BAE6FD" />
+      <circle cx="270" cy="285" r="3" fill="#38BDF8" />
+    </g>
+
+    <!-- 3. TORSO & BELLY -->
+    <ellipse cx="250" cy="210" rx="65" ry="60" fill="url(#bodySkin)" stroke="#1C140D" stroke-width="5" />
+
+    <!-- 4. ARMS WITH BLUE BRACELETS & WHITE LOTUS/SWEETS -->
+    <!-- Left Arm & Lotus -->
+    <path
+      d="M 160 170 C 130 190, 120 225, 155 235 C 175 240, 195 210, 190 190 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+    />
+    <!-- Left Blue Bracelet -->
+    <g fill="url(#braceletBlue)" stroke="#0F172A" stroke-width="1.5">
+      <ellipse cx="140" cy="188" rx="13" ry="6" transform="rotate(35 140 188)" />
+      <circle cx="135" cy="183" r="2.5" fill="#BAE6FD" />
+      <circle cx="140" cy="188" r="2.5" fill="#38BDF8" />
+      <circle cx="145" cy="193" r="2.5" fill="#BAE6FD" />
+    </g>
+    <!-- Left White Modak / Lotus in hand -->
+    <path
+      d="M 130 195 C 115 190, 120 165, 140 175 C 150 180, 145 205, 130 195 Z"
+      fill="#FFFFFF"
+      stroke="#1C140D"
+      stroke-width="3"
+    />
+    <path d="M 133 175 Q 138 185 130 195" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+    <!-- Right Arm & Lotus -->
+    <path
+      d="M 340 170 C 370 190, 380 225, 345 235 C 325 240, 305 210, 310 190 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+    />
+    <!-- Right Blue Bracelet -->
+    <g fill="url(#braceletBlue)" stroke="#0F172A" stroke-width="1.5">
+      <ellipse cx="360" cy="188" rx="13" ry="6" transform="rotate(-35 360 188)" />
+      <circle cx="355" cy="193" r="2.5" fill="#BAE6FD" />
+      <circle cx="360" cy="188" r="2.5" fill="#38BDF8" />
+      <circle cx="365" cy="183" r="2.5" fill="#BAE6FD" />
+    </g>
+    <!-- Right White Modak / Lotus in hand -->
+    <path
+      d="M 370 195 C 385 190, 380 165, 360 175 C 350 180, 355 205, 370 195 Z"
+      fill="#FFFFFF"
+      stroke="#1C140D"
+      stroke-width="3"
+    />
+    <path d="M 367 175 Q 362 185 370 195" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+    <!-- 5. BENDERA MERAH PUTIH (INDONESIAN FLAG DRAPED DIAGONALLY) -->
+    <g>
+      <!-- Red Upper Half -->
+      <path
+        d="M 170 230 Q 230 200 320 160 L 310 180 Q 220 220 150 250 Z"
+        fill="url(#flagRed)"
+        stroke="#1C140D"
+        stroke-width="4.5"
+        stroke-linejoin="round"
+      />
+      <!-- White Lower Half -->
+      <path
+        d="M 150 250 Q 220 220 310 180 L 305 202 Q 215 242 145 272 Z"
+        fill="url(#flagWhite)"
+        stroke="#1C140D"
+        stroke-width="4.5"
+        stroke-linejoin="round"
+      />
+    </g>
+
+    <!-- 6. HEAD & CHEEKS -->
+    <circle cx="250" cy="140" r="58" fill="url(#bodySkin)" stroke="#1C140D" stroke-width="5" />
+
+    <!-- Left & Right Stylized Eyes -->
+    <g fill="#1C140D">
+      <!-- Left Eye -->
+      <ellipse cx="228" cy="115" rx="3.5" ry="4.5" />
+      <!-- Left Brow -->
+      <path d="M 218 107 C 224 102, 234 104, 238 108" fill="none" stroke="#1C140D" stroke-width="3" stroke-linecap="round" />
+      <!-- Left Cheek blush / fold -->
+      <path d="M 206 126 Q 212 136 218 142" fill="none" stroke="#8C5018" stroke-width="3" stroke-linecap="round" />
+
+      <!-- Right Eye -->
+      <ellipse cx="272" cy="115" rx="3.5" ry="4.5" />
+      <!-- Right Brow -->
+      <path d="M 282 107 C 276 102, 266 104, 262 108" fill="none" stroke="#1C140D" stroke-width="3" stroke-linecap="round" />
+      <!-- Right Cheek blush / fold -->
+      <path d="M 294 126 Q 288 136 282 142" fill="none" stroke="#8C5018" stroke-width="3" stroke-linecap="round" />
+    </g>
+
+    <!-- 7. TRUNK (BELALAI GANESHA) -->
+    <!-- Trunk curving smoothly from between eyes downward and curled -->
+    <path
+      d="M 242 125 
+         C 240 150, 235 180, 245 205 
+         C 255 230, 285 225, 290 200 
+         C 292 185, 280 180, 275 190 
+         C 270 200, 258 200, 256 185 
+         C 252 165, 258 145, 258 125 Z"
+      fill="url(#bodySkin)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <!-- Trunk Skin Creases -->
+    <path d="M 244 148 Q 250 152 256 148" fill="none" stroke="#8C5018" stroke-width="3" stroke-linecap="round" />
+    <path d="M 243 162 Q 250 166 256 162" fill="none" stroke="#8C5018" stroke-width="3" stroke-linecap="round" />
+    <path d="M 244 176 Q 251 180 258 176" fill="none" stroke="#8C5018" stroke-width="3" stroke-linecap="round" />
+
+    <!-- 8. FOREHEAD TILAK MARK (TANDA DAHI KHAS GANESHA) -->
+    <g transform="translate(250, 96)">
+      <!-- Horizontal rectangle box -->
+      <rect x="-11" y="-5" width="22" height="10" rx="3" fill="none" stroke="#1C140D" stroke-width="2.5" />
+      <!-- Center dot -->
+      <circle cx="0" cy="0" r="2.8" fill="#FFB703" stroke="#1C140D" stroke-width="1.2" />
+      <!-- Side dashes -->
+      <line x1="-7" y1="0" x2="-3" y2="0" stroke="#1C140D" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="3" y1="0" x2="7" y2="0" stroke="#1C140D" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+
+    <!-- 9. GREEN CAP / TOPI PET KEDINASAN BPSDM DENGAN PIN EMBLEM -->
+    <!-- Cap Dome -->
+    <path
+      d="M 185 86 C 190 35, 310 35, 315 86 Z"
+      fill="url(#capGreen)"
+      stroke="#1C140D"
+      stroke-width="5"
+      stroke-linejoin="round"
+    />
+    <!-- Cap Crown Seam / Fold -->
+    <path
+      d="M 250 40 L 250 82"
+      fill="none"
+      stroke="#0F5132"
+      stroke-width="3.5"
+    />
+
+    <!-- Cap Visor / Lidah Topi Hijau Tua -->
+    <path
+      d="M 175 84 C 210 92, 290 92, 325 84 C 330 94, 305 102, 250 102 C 195 102, 170 94, 175 84 Z"
+      fill="#14532D"
+      stroke="#1C140D"
+      stroke-width="4.5"
+      stroke-linejoin="round"
+    />
+
+    <!-- OFFICIAL BPSDM JATIM BADGE / EMBLEM PIN ON CAP -->
+    <g transform="translate(250, 64)">
+      <!-- Outer Gold / Orange Ring -->
+      <circle cx="0" cy="0" r="21" fill="#EA580C" stroke="#1C140D" stroke-width="3.5" />
+      <!-- Inner White/Cream Circle -->
+      <circle cx="0" cy="0" r="16.5" fill="#FFFBEB" stroke="#B45309" stroke-width="1.5" />
+
+      <!-- East Java Emblem Shield Inside Badge -->
+      <path
+        d="M 0 -11 C 6 -11, 10 -8, 10 -2 C 10 7, 5 11, 0 13 C -5 11, -10 7, -10 -2 C -10 -8, -6 -11, 0 -11 Z"
+        fill="#0284C7"
+        stroke="#1E293B"
+        stroke-width="1"
+      />
+      <!-- Mountain Semeru & Monument -->
+      <polygon points="0,-7 6,4 -6,4" fill="#047857" />
+      <line x1="0" y1="-2" x2="0" y2="4" stroke="#F8FAFC" stroke-width="1.5" />
+      <!-- Golden Star -->
+      <polygon points="0,-9 1,-7 3,-7 1.5,-5.5 2,-3.5 0,-4.5 -2,-3.5 -1.5,-5.5 -3,-7 -1,-7" fill="#FACC15" />
+      <!-- Tiny Motto Ring -->
+      <circle cx="0" cy="0" r="19" fill="none" stroke="#FDE047" stroke-width="0.8" stroke-dasharray="2 1.5" />
+    </g>
+  </g>
+
+  <!-- 10. TYPOGRAPHY: "BPSDM" (ORANGE BOLD SLANTED) & "Jatim" (BLUE BRUSH SCRIPT) -->
+  <g id="bpsdm-typography" transform="translate(250, 395)">
+    <!-- "BPSDM" Text -->
+    <!-- Drop Shadow / Outline layer for maximum contrast and sharpness -->
+    <text
+      x="0"
+      y="0"
+      text-anchor="middle"
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial Black', Impact, sans-serif"
+      font-weight="900"
+      font-style="italic"
+      font-size="64"
+      letter-spacing="2"
+      fill="#D9480F"
+      transform="skewX(-6)"
+    >
+      BPSDM
+    </text>
+    <text
+      x="0"
+      y="-3"
+      text-anchor="middle"
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial Black', Impact, sans-serif"
+      font-weight="900"
+      font-style="italic"
+      font-size="64"
+      letter-spacing="2"
+      fill="url(#textOrange)"
+      transform="skewX(-6)"
+    >
+      BPSDM
+    </text>
+
+    <!-- "Jatim" Blue Expressive Brush Calligraphy Script (Below the DM of BPSDM) -->
+    <!-- Positioned naturally as in the official logo -->
+    <g transform="translate(45, 42)">
+      <!-- Styled Artistic Path for "Jatim" -->
+      <!-- Letter 'J' with graceful ascender and loop -->
+      <path
+        d="M -5 -38 C -4 -42, 6 -42, 8 -36 C 9 -30, 3 -16, 2 0 C 0 16, -10 24, -20 22 C -28 20, -26 10, -18 8 C -10 6, -3 10, 0 2"
+        fill="none"
+        stroke="#1D4ED8"
+        stroke-width="7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <!-- Dot on letter 'i' -->
+      <ellipse cx="28" cy="-28" rx="3.5" ry="4.5" fill="#1D4ED8" />
+
+      <!-- Connected "atim" script -->
+      <path
+        d="M 5 -12 
+           C 12 -12, 16 -18, 16 -24 C 16 -30, 8 -30, 4 -22 C 0 -14, 4 -4, 14 -4 C 20 -4, 25 -10, 25 -18 
+           L 26 -6 
+           C 27 -2, 29 0, 34 0 
+           L 38 -34 
+           M 31 -22 L 46 -22 
+           M 38 -6 C 42 0, 48 0, 52 -8 
+           M 46 -20 L 46 -6 C 47 0, 50 0, 54 -6
+           M 54 -20 L 54 -6 C 55 2, 60 4, 68 -2
+           L 68 -18 L 68 -6 C 69 2, 75 4, 82 -4"
+        fill="none"
+        stroke="#1D4ED8"
+        stroke-width="6.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <!-- Dynamic Underline Swash under Jatim -->
+      <path
+        d="M -15 28 C 10 32, 50 28, 88 16"
+        fill="none"
+        stroke="#2563EB"
+        stroke-width="4.5"
+        stroke-linecap="round"
+      />
+    </g>
+  </g>
+</svg>

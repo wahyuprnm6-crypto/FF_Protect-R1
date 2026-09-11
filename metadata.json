@@ -1,0 +1,8 @@
+{
+  "name": "Virtual Office BPSDM Jatim",
+  "description": "Pusat Komando Virtual Office BPSDM Provinsi Jawa Timur, Google SSO ASN, Pemantauan WFA Hingga 100% Sesuai SE No. 800/1141/204/2026, Presensi 3x Sehari, dan AI Analisa Kinerja.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
